@@ -7,24 +7,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f8f9fa;color:#1a1a1a;min-height:100vh}
-
-/* 헤더 */
 .hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:4rem 1.5rem 3rem;text-align:center}
 .hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 16px;font-size:13px;margin-bottom:1.25rem;letter-spacing:.5px}
 .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;line-height:1.35;margin-bottom:.75rem}
 .hero h1 span{color:#60a5fa}
 .hero p{font-size:15px;color:rgba(255,255,255,.7);max-width:480px;margin:0 auto;line-height:1.7}
-
-/* 앱 목록 */
 .section{max-width:900px;margin:0 auto;padding:2.5rem 1.25rem}
 .section-title{font-size:18px;font-weight:700;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
 .section-title::after{content:'';flex:1;height:1px;background:#e0e0e0}
-
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-
 .card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
 .card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-
 .card-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:48px}
 .card-body{padding:1.1rem 1.25rem;flex:1;display:flex;flex-direction:column;gap:6px}
 .card-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;width:fit-content}
@@ -33,18 +26,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .card-footer{padding:.85rem 1.25rem;border-top:1px solid #f0f0f0}
 .card-btn{display:block;text-align:center;background:#1a1a1a;color:#fff;text-decoration:none;padding:9px 16px;border-radius:8px;font-size:14px;font-weight:500;transition:background .15s}
 .card-btn:hover{background:#333}
-
 .card-soon .card-thumb{background:#f8f8f8}
 .card-soon .card-btn{background:#e0e0e0;color:#888;cursor:default;pointer-events:none}
-
-/* 바이브코딩 설명 */
 .vibe{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:1.75rem;margin-top:2rem;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .vibe h2{font-size:16px;font-weight:700;margin-bottom:.75rem;color:#1a1a1a}
 .vibe p{font-size:14px;color:#555;line-height:1.8}
-
-/* 푸터 */
 footer{text-align:center;padding:2rem;font-size:13px;color:#aaa;border-top:1px solid #f0f0f0;margin-top:1rem}
-
 @media(max-width:500px){.cards{grid-template-columns:1fr}}
 </style>
 </head>
@@ -52,15 +39,14 @@ footer{text-align:center;padding:2rem;font-size:13px;color:#aaa;border-top:1px s
 
 <div class="hero">
   <div class="hero-tag">🎓 바이브코딩 × 교육 현장</div>
-  <h1>혜진 선생님의<br><span>AI 바이브코딩</span> 앱 모음</h1>
-  <p>Claude AI와 함께 만든 교육 현장 맞춤 웹앱들을 소개합니다</p>
+  <h1>혜진(도덕) 선생님의<br><span>AI 바이브코딩</span> 앱 모음</h1>
+  <p> AI와 함께 만든 교육 현장 맞춤 웹앱들을 소개합니다</p>
 </div>
 
 <div class="section">
   <div class="section-title">📱 만들어진 앱</div>
   <div class="cards">
 
-    <!-- 앱 1: 캠페인 스케줄러 -->
     <div class="card">
       <div class="card-thumb" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd)">🕊</div>
       <div class="card-body">
@@ -73,7 +59,6 @@ footer{text-align:center;padding:2rem;font-size:13px;color:#aaa;border-top:1px s
       </div>
     </div>
 
-    <!-- 앱 2: 수행평가 관리 -->
     <div class="card">
       <div class="card-thumb" style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0)">📋</div>
       <div class="card-body">
@@ -86,7 +71,6 @@ footer{text-align:center;padding:2rem;font-size:13px;color:#aaa;border-top:1px s
       </div>
     </div>
 
-    <!-- 준비중 카드 -->
     <div class="card card-soon">
       <div class="card-thumb">✨</div>
       <div class="card-body">
@@ -101,7 +85,6 @@ footer{text-align:center;padding:2rem;font-size:13px;color:#aaa;border-top:1px s
 
   </div>
 
-  <!-- 바이브코딩 설명 -->
   <div class="vibe">
     <h2>💡 바이브코딩이란?</h2>
     <p>코딩을 몰라도 괜찮아요. Claude AI에게 "이런 앱 만들어줘"라고 말하면, AI가 코드를 짜주고 저는 아이디어와 방향만 잡아주면 돼요. 교육 현장의 필요를 가장 잘 아는 선생님이 직접 앱을 만드는 시대입니다.</p>
