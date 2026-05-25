@@ -20,11 +20,11 @@ header p { font-size: 13px; color: #666; }
 .card { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
 .section-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
 
-/* 반/조 선택 */
 .class-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .class-btn { padding: 16px 8px; border: 1.5px solid #e8e6e0; border-radius: 10px; background: #fff; cursor: pointer; font-size: 15px; font-weight: 600; color: #1a1a1a; transition: all .15s; }
 .class-btn:hover { border-color: #aaa; background: #fafafa; }
 .class-btn.selected { border-color: #185FA5; background: #E6F1FB; color: #185FA5; }
+
 .group-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
 .group-btn { padding: 12px 4px; border: 1.5px solid #e8e6e0; border-radius: 10px; background: #fff; cursor: pointer; font-size: 14px; font-weight: 600; color: #1a1a1a; transition: all .15s; line-height: 1.5; }
 .group-btn:hover { border-color: #aaa; }
@@ -32,23 +32,22 @@ header p { font-size: 13px; color: #666; }
 .group-btn.scheduled { border-color: #BA7517; background: #FAEEDA; color: #633806; }
 .group-btn.all-done { border-color: #3B6D11; background: #EAF3DE; color: #27500A; }
 
-/* 버튼 */
-.btn-primary { display: block; width: 100%; padding: 14px; background: #185FA5; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all .15s; margin-top: 4px; }
+.btn-primary { display: block; width: 100%; padding: 14px; background: #185FA5; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all .15s; margin-top: 4px; font-family: inherit; }
 .btn-primary:hover { background: #0C447C; }
 .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
-.btn-secondary { display: block; width: 100%; padding: 12px; background: #fff; color: #333; border: 1.5px solid #e0ddd6; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; margin-top: 8px; }
+.btn-secondary { display: block; width: 100%; padding: 12px; background: #fff; color: #333; border: 1.5px solid #e0ddd6; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; margin-top: 8px; font-family: inherit; }
 .btn-secondary:hover { background: #f5f4f0; }
-.btn-danger { display: inline-block; padding: 6px 12px; background: #fff; color: #A32D2D; border: 1.5px solid #f5c6c6; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
-.btn-danger:hover { background: #FCEBEB; }
+.btn-reset { display: block; width: 100%; padding: 12px; background: #fff; color: #A32D2D; border: 1.5px solid #f5c6c6; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; margin-top: 8px; font-family: inherit; }
+.btn-reset:hover { background: #FCEBEB; }
+.btn-edit { display: block; width: 100%; padding: 12px; background: #fff; color: #185FA5; border: 1.5px solid #185FA5; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; margin-top: 8px; font-family: inherit; }
+.btn-edit:hover { background: #E6F1FB; }
 
-/* 이름 입력 */
 .names-textarea { width: 100%; border: 1.5px solid #e0ddd6; border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; resize: vertical; min-height: 70px; outline: none; transition: border-color .15s; }
 .names-textarea:focus { border-color: #185FA5; }
 
-/* 달력 */
 .calendar { margin-bottom: 12px; }
 .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.cal-nav { background: #f5f4f0; border: none; border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; color: #333; transition: background .12s; }
+.cal-nav { background: #f5f4f0; border: none; border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: #333; transition: background .12s; font-family: inherit; }
 .cal-nav:hover { background: #e8e6e0; }
 .cal-title { font-size: 15px; font-weight: 700; }
 .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
@@ -60,10 +59,9 @@ header p { font-size: 13px; color: #666; }
 .cal-day.past, .cal-day.weekend { color: #ccc; cursor: not-allowed; }
 .cal-day.empty { cursor: default; }
 
-/* 슬롯 버튼 */
 .time-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
 .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-.slot-btn { padding: 12px; border: 1.5px solid #e0ddd6; border-radius: 10px; background: #fff; cursor: pointer; text-align: left; transition: all .12s; width: 100%; }
+.slot-btn { padding: 12px; border: 1.5px solid #e0ddd6; border-radius: 10px; background: #fff; cursor: pointer; text-align: left; transition: all .12s; width: 100%; font-family: inherit; }
 .slot-btn:hover:not(:disabled) { border-color: #aaa; background: #fafafa; }
 .slot-btn.selected { border-color: #185FA5; background: #E6F1FB; }
 .slot-btn:disabled { opacity: .45; cursor: not-allowed; }
@@ -74,80 +72,70 @@ header p { font-size: 13px; color: #666; }
 .full-badge { display: inline-block; font-size: 10px; background: #FCEBEB; color: #A32D2D; border-radius: 4px; padding: 1px 5px; margin-left: 6px; font-weight: 600; }
 .avail-badge { display: inline-block; font-size: 10px; background: #EAF3DE; color: #3B6D11; border-radius: 4px; padding: 1px 5px; margin-left: 6px; font-weight: 600; }
 
-/* 회차 카드 (신청완료) */
 .session-done-card { border-radius: 10px; padding: 14px; background: #EAF3DE; border: 1.5px solid #3B6D11; margin-bottom: 10px; }
-.session-done-card.executed { background: #E6F1FB; border-color: #185FA5; }
-.session-done-card.not-executed { background: #FCEBEB; border-color: #A32D2D; }
 .session-done-label { font-size: 11px; font-weight: 700; color: #3B6D11; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
-.session-done-card.executed .session-done-label { color: #185FA5; }
-.session-done-card.not-executed .session-done-label { color: #A32D2D; }
 .session-done-date { font-size: 15px; font-weight: 700; color: #1a1a1a; }
 .session-done-detail { font-size: 13px; color: #3B6D11; margin-top: 2px; }
-.session-done-card.executed .session-done-detail { color: #185FA5; }
-.session-done-card.not-executed .session-done-detail { color: #A32D2D; }
 .change-btn { background: none; border: none; font-size: 12px; color: #999; cursor: pointer; margin-top: 8px; padding: 0; font-family: inherit; }
+.change-btn:hover { color: #A32D2D; }
 
-/* 시행여부 토글 */
 .exec-row { display: flex; gap: 8px; margin-top: 10px; }
-.exec-btn { flex: 1; padding: 8px; border: 1.5px solid #e0ddd6; border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #888; transition: all .15s; }
+.exec-btn { flex: 1; padding: 8px; border: 1.5px solid #e0ddd6; border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #888; transition: all .15s; font-family: inherit; }
 .exec-btn.yes { border-color: #185FA5; background: #E6F1FB; color: #185FA5; }
 .exec-btn.no { border-color: #A32D2D; background: #FCEBEB; color: #A32D2D; }
 
-/* 참여학생 체크박스 */
 .member-check-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
 .member-check-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: #f5f4f0; border-radius: 8px; cursor: pointer; transition: background .12s; }
 .member-check-item:hover { background: #ece9e4; }
 .member-check-item input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: #185FA5; flex-shrink: 0; }
-.member-check-item label { font-size: 14px; cursor: pointer; flex: 1; }
-.member-check-item.checked label { color: #185FA5; font-weight: 600; }
+.member-check-item span { font-size: 14px; cursor: pointer; flex: 1; }
+.member-check-item.checked span { color: #185FA5; font-weight: 600; }
 .member-check-item.checked { background: #E6F1FB; }
 
-/* step */
 .step-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 20px; }
 .step-dot { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; color: #999; }
 .step-dot.active { background: #185FA5; color: #fff; border-color: #185FA5; }
 .step-dot.done { background: #1D9E75; color: #fff; border-color: #1D9E75; }
 .step-line { flex: 1; height: 1px; background: #e0ddd6; }
 .step-text { font-size: 12px; color: #888; }
+
 .back-btn { background: none; border: none; cursor: pointer; font-size: 13px; color: #888; margin-bottom: 14px; padding: 0; font-family: inherit; }
 .back-btn:hover { color: #333; }
 
 .view { display: none; }
 .view.active { display: block; }
 
-/* 성공 */
 .success-wrap { text-align: center; padding: 28px 0 16px; }
 .success-icon { font-size: 52px; margin-bottom: 10px; }
 .success-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
 .success-sub { font-size: 13px; color: #666; }
 .sess-result { background: #f5f4f0; border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; font-size: 13px; }
 
-/* 관리자 */
 .admin-stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
 .stat-box { background: #f5f4f0; border-radius: 10px; padding: 10px 6px; text-align: center; }
 .stat-num { font-size: 22px; font-weight: 700; }
 .stat-lbl { font-size: 10px; color: #888; margin-top: 2px; }
+
 .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .admin-table th { font-size: 10px; font-weight: 700; color: #999; text-transform: uppercase; padding: 4px 6px 8px; border-bottom: 1px solid #e8e6e0; text-align: left; }
 .admin-table td { padding: 8px 6px; border-bottom: 1px solid #f0ede6; vertical-align: middle; }
 .admin-table tr:last-child td { border-bottom: none; }
 .admin-table tr:hover td { background: #fafaf8; cursor: pointer; }
+
 .chip { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 700; white-space: nowrap; }
 .chip-done { background: #EAF3DE; color: #27500A; }
 .chip-partial { background: #FAEEDA; color: #633806; }
 .chip-none { background: #f0ede6; color: #999; }
 .chip-exec { background: #E6F1FB; color: #185FA5; }
 
-/* 모달 */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 100; align-items: flex-end; justify-content: center; padding: 0; }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 100; align-items: flex-end; justify-content: center; }
 .modal-overlay.open { display: flex; }
 .modal { background: #fff; border-radius: 20px 20px 0 0; padding: 20px 20px 36px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
 .modal-handle { width: 36px; height: 4px; background: #ddd; border-radius: 2px; margin: 0 auto 16px; }
 .modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
 .modal-names { font-size: 13px; color: #666; margin-bottom: 14px; }
-.modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: #999; margin-top: -4px; }
+.modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: #999; margin-top: -4px; font-family: inherit; }
 
-/* 모달 회차 카드 */
 .modal-sess-card { border: 1.5px solid #e0ddd6; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
 .modal-sess-card.exec-yes { border-color: #185FA5; background: #f0f6ff; }
 .modal-sess-card.exec-no { border-color: #e09a9a; background: #fff8f8; }
@@ -155,40 +143,43 @@ header p { font-size: 13px; color: #666; }
 .modal-sess-date { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
 .modal-sess-detail { font-size: 13px; color: #555; margin-bottom: 10px; }
 
-/* 교사 시행여부 토글 */
 .teacher-exec-row { display: flex; gap: 8px; margin-bottom: 10px; }
-.teacher-exec-btn { flex: 1; padding: 8px; border: 1.5px solid #e0ddd6; border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #888; transition: all .15s; }
+.teacher-exec-btn { flex: 1; padding: 8px; border: 1.5px solid #e0ddd6; border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: #888; transition: all .15s; font-family: inherit; }
 .teacher-exec-btn.yes { border-color: #185FA5; background: #185FA5; color: #fff; }
 .teacher-exec-btn.no { border-color: #A32D2D; background: #A32D2D; color: #fff; }
 
-/* 참여학생 목록 (모달) */
 .modal-member-list { display: flex; flex-wrap: wrap; gap: 6px; }
-.member-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #f0ede6; color: #555; }
+.member-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 .member-tag.present { background: #E6F1FB; color: #185FA5; }
 .member-tag.absent { background: #f0ede6; color: #aaa; text-decoration: line-through; }
 
-/* 시행 완료 배지 */
-.exec-status-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; margin-bottom: 6px; }
-.exec-status-badge.yes { background: #E6F1FB; color: #185FA5; }
-.exec-status-badge.no { background: #FCEBEB; color: #A32D2D; }
+.reset-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+.reset-modal-overlay.open { display: flex; }
+.reset-modal { background: #fff; border-radius: 16px; padding: 24px; width: 100%; max-width: 400px; }
+.reset-modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.reset-modal p { font-size: 13px; color: #666; margin-bottom: 16px; line-height: 1.6; }
+.class-reset-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+.class-reset-btn { padding: 14px 8px; border: 1.5px solid #e8e6e0; border-radius: 10px; background: #fff; cursor: pointer; font-size: 14px; font-weight: 600; color: #1a1a1a; transition: all .15s; font-family: inherit; }
+.class-reset-btn:hover { border-color: #A32D2D; background: #FCEBEB; color: #A32D2D; }
+.btn-reset-all { display: block; width: 100%; padding: 12px; background: #A32D2D; color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 8px; font-family: inherit; }
+.btn-reset-all:hover { background: #7a1f1f; }
+.attend-count { font-size: 12px; color: #185FA5; font-weight: 600; margin-top: 6px; text-align: right; }
 </style>
 </head>
 <body>
 <div class="container">
 
-<!-- ── HOME ── -->
+<!-- HOME -->
 <div id="view-home" class="view active">
   <header>
     <h1>🕊 학교폭력예방 캠페인</h1>
     <p>반과 조를 선택하고 3회 캠페인 일정을 신청하세요</p>
   </header>
-
   <div class="tab-bar">
     <button class="tab active" onclick="switchTab('student')">학생 신청</button>
     <button class="tab" onclick="switchTab('admin')">선생님 보기</button>
   </div>
 
-  <!-- 학생 탭 -->
   <div id="tab-student">
     <div class="card">
       <div class="section-label">반 선택</div>
@@ -201,7 +192,6 @@ header p { font-size: 13px; color: #666; }
     <button class="btn-primary" id="btn-start" disabled onclick="goToSchedule()">일정 신청하기 →</button>
   </div>
 
-  <!-- 선생님 탭 -->
   <div id="tab-admin" style="display:none">
     <div class="card">
       <div class="section-label">전체 현황</div>
@@ -217,10 +207,11 @@ header p { font-size: 13px; color: #666; }
       </table>
     </div>
     <button class="btn-secondary" onclick="exportData()">📄 전체 일정 내보내기</button>
+    <button class="btn-reset" onclick="openResetModal()">🗑 학급별 초기화</button>
   </div>
 </div>
 
-<!-- ── SCHEDULE ── -->
+<!-- SCHEDULE -->
 <div id="view-schedule" class="view">
   <button class="back-btn" onclick="goHome()">← 처음으로</button>
   <header style="text-align:left;margin-bottom:16px">
@@ -237,8 +228,6 @@ header p { font-size: 13px; color: #666; }
     <div class="step-dot" id="sd4">4</div>
     <span class="step-text" id="step-label"></span>
   </div>
-
-  <!-- step 1: 이름 -->
   <div id="step-names">
     <div class="card">
       <div class="section-label">조원 이름 입력</div>
@@ -247,15 +236,13 @@ header p { font-size: 13px; color: #666; }
     </div>
     <button class="btn-primary" onclick="nextFromNames()">다음 →</button>
   </div>
-
-  <!-- step 2: 일정 -->
   <div id="step-sessions" style="display:none">
     <div id="sessions-container"></div>
     <button class="btn-primary" id="btn-submit" disabled onclick="submitSchedule()">✅ 신청 완료</button>
   </div>
 </div>
 
-<!-- ── MYPAGE (시행여부/참여체크) ── -->
+<!-- MYPAGE -->
 <div id="view-mypage" class="view">
   <button class="back-btn" onclick="goHome()">← 처음으로</button>
   <header style="text-align:left;margin-bottom:16px">
@@ -263,10 +250,12 @@ header p { font-size: 13px; color: #666; }
     <p id="mypage-sub" style="font-size:13px;color:#666;margin-top:2px"></p>
   </header>
   <div id="mypage-sessions"></div>
-  <button class="btn-secondary" onclick="saveMypage()">💾 저장하기</button>
+  <button class="btn-primary" onclick="saveMypage()">💾 저장하기</button>
+  <button class="btn-edit" onclick="editSchedule()">✏️ 일정 수정하기</button>
+  <button class="btn-secondary" onclick="goHome()">← 처음으로</button>
 </div>
 
-<!-- ── SUCCESS ── -->
+<!-- SUCCESS -->
 <div id="view-success" class="view">
   <div class="success-wrap">
     <div class="success-icon">✅</div>
@@ -277,58 +266,65 @@ header p { font-size: 13px; color: #666; }
     <div class="section-label">신청한 일정</div>
     <div id="success-sessions"></div>
   </div>
-  <button class="btn-primary" onclick="goMypage()" style="margin-top:4px">시행여부 / 참여학생 체크하기</button>
+  <button class="btn-primary" onclick="goMypage()" style="margin-top:8px">시행여부 / 참여학생 체크하기</button>
   <button class="btn-secondary" onclick="goHome()">← 처음으로</button>
 </div>
 
-</div><!-- /container -->
+</div>
 
-<!-- ── 관리자 모달 ── -->
+<!-- 관리자 상세 모달 -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
-  <div class="modal" id="modal-body">
+  <div class="modal">
     <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeModal()">✕</button>
     <h2 id="modal-title"></h2>
     <div class="modal-names" id="modal-names"></div>
     <div id="modal-sessions"></div>
-    <button class="btn-secondary" style="margin-top:4px" onclick="closeModal()">닫기</button>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn-secondary" style="flex:1;margin-top:0" onclick="closeModal()">닫기</button>
+      <button onclick="resetCurrentGroup()" style="flex:1;padding:12px;background:#fff;color:#A32D2D;border:1.5px solid #f5c6c6;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">🗑 이 조 초기화</button>
+    </div>
+  </div>
+</div>
+
+<!-- 학급 초기화 모달 -->
+<div class="reset-modal-overlay" id="reset-modal-overlay" onclick="closeResetModalOutside(event)">
+  <div class="reset-modal">
+    <h3>🗑 학급별 초기화</h3>
+    <p>초기화할 반을 선택하세요.<br>해당 반의 모든 조 데이터가 삭제됩니다.</p>
+    <div class="class-reset-grid" id="class-reset-grid"></div>
+    <button class="btn-reset-all" onclick="resetAll()">⚠️ 전체 초기화 (63팀)</button>
+    <button class="btn-secondary" style="margin-top:0" onclick="closeResetModal()">취소</button>
   </div>
 </div>
 
 <script>
-/* ── 상수 ── */
-const LOCATIONS = { morning:['정문','후문'], lunch:['중앙현관 앞마당'], after:['정문','후문'] };
+const LOCATIONS  = { morning:['정문','후문'], lunch:['중앙현관 앞마당'], after:['정문','후문'] };
 const TIME_LABELS = { morning:'🌅 아침 등굣길', lunch:'🌞 점심시간', after:'🌇 방과후 하굣길' };
 const TIME_TIMES  = { morning:'08:20 ~ 08:40', lunch:'12:30 ~ 13:20', after:'15:20 ~ 16:30' };
 const MAX_SLOT = 5;
 const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
 const DAYS   = ['일','월','화','수','목','금','토'];
 
-/* ── 데이터 ── */
-// schedules[key] = {
-//   names: "김민준, 이서연",
-//   sessions: [
-//     { date, time, loc, executed: null|true|false, presentMembers: [] },
-//     ...
-//   ]
-// }
 let schedules = {};
+let currentModalKey = null;
 
-/* ── 현재 상태 ── */
 let S = {
   cls: null, grp: null, names: '',
-  sessions: mkBlankSessions(),
+  sessions: blankSessions(),
   calY: new Date().getFullYear(), calM: new Date().getMonth()
 };
 
-function mkBlankSessions(){
-  return [{date:null,time:null,loc:null,executed:null,presentMembers:[]},
-          {date:null,time:null,loc:null,executed:null,presentMembers:[]},
-          {date:null,time:null,loc:null,executed:null,presentMembers:[]}];
+function blankSessions(){
+  return [
+    {date:null,time:null,loc:null,executed:null,presentMembers:[]},
+    {date:null,time:null,loc:null,executed:null,presentMembers:[]},
+    {date:null,time:null,loc:null,executed:null,presentMembers:[]}
+  ];
 }
 
-/* ── 초기화 ── */
-(function(){
+/* ── 초기화: 반 버튼 생성 ── */
+(function init(){
   const cg = document.getElementById('class-grid');
   for(let c=1;c<=9;c++){
     const b = document.createElement('button');
@@ -336,17 +332,24 @@ function mkBlankSessions(){
     b.onclick=()=>selectClass(c);
     cg.appendChild(b);
   }
+  const rg = document.getElementById('class-reset-grid');
+  for(let c=1;c<=9;c++){
+    const b = document.createElement('button');
+    b.className='class-reset-btn'; b.textContent=c+'반';
+    b.onclick=()=>resetClass(c);
+    rg.appendChild(b);
+  }
 })();
 
 /* ── 헬퍼 ── */
-function getSlotCount(date,time,loc){
-  let n=0;
+function getSlotCount(date, time, loc){
+  let n = 0;
   for(let k in schedules)
-    (schedules[k].sessions||[]).forEach(s=>{ if(s.date===date&&s.time===time&&s.loc===loc) n++; });
+    (schedules[k].sessions||[]).forEach(s=>{ if(s.date===date && s.time===time && s.loc===loc) n++; });
   return n;
 }
-function memberList(){ return S.names.split(/[,\n]/).map(n=>n.trim()).filter(Boolean); }
-function show(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function myKey(){ return `${S.cls}-${S.grp}`; }
 
 /* ── 반/조 선택 ── */
 function selectClass(c){
@@ -359,22 +362,22 @@ function selectClass(c){
 }
 
 function renderGroups(c){
-  const g=document.getElementById('group-grid'); g.innerHTML='';
-  for(let i=1;i<=7;i++){
-    const key=`${c}-${i}`, d=schedules[key];
-    const cnt=d?d.sessions.filter(s=>s.date).length:0;
-    const execCnt=d?d.sessions.filter(s=>s.executed===true).length:0;
+  const grid=document.getElementById('group-grid'); grid.innerHTML='';
+  for(let g=1;g<=7;g++){
+    const key=`${c}-${g}`, d=schedules[key];
+    const schd=d?d.sessions.filter(s=>s.date).length:0;
+    const exec=d?d.sessions.filter(s=>s.executed===true).length:0;
     const btn=document.createElement('button');
     let cls='group-btn';
-    if(execCnt>0) cls+=' all-done';
-    else if(cnt>0) cls+=' scheduled';
-    btn.className=cls;
+    if(exec>0) cls+=' all-done';
+    else if(schd>0) cls+=' scheduled';
     let sub='';
-    if(execCnt>0) sub=`<br><small style="font-size:10px">${execCnt}회 시행</small>`;
-    else if(cnt>0) sub=`<br><small style="font-size:10px">${cnt}/3 신청</small>`;
-    btn.innerHTML=i+'조'+sub;
-    btn.onclick=()=>selectGroup(i);
-    g.appendChild(btn);
+    if(exec>0) sub=`<br><small style="font-size:10px">${exec}회 시행</small>`;
+    else if(schd>0) sub=`<br><small style="font-size:10px">${schd}/3 신청</small>`;
+    btn.className=cls;
+    btn.innerHTML=g+'조'+sub;
+    btn.onclick=()=>selectGroup(g);
+    grid.appendChild(btn);
   }
 }
 
@@ -400,14 +403,12 @@ function renderAdmin(){
     const key=`${c}-${g}`, data=schedules[key];
     const schd=data?data.sessions.filter(s=>s.date).length:0;
     const exec=data?data.sessions.filter(s=>s.executed===true).length:0;
-    if(exec>0) execCnt++;
-    else if(schd===3) doneCnt++;
-    else if(schd>0) partialCnt++;
-    else noneCnt++;
+    if(exec>0) execCnt++; else if(schd===3) doneCnt++; else if(schd>0) partialCnt++; else noneCnt++;
     const tr=document.createElement('tr');
     const chip=exec>0?`<span class="chip chip-exec">${exec}회 시행</span>`:schd===3?'<span class="chip chip-done">신청완료</span>':schd>0?`<span class="chip chip-partial">${schd}/3</span>`:'<span class="chip chip-none">미신청</span>';
     const execBadge=exec>0?`<span style="font-size:11px;color:#185FA5;font-weight:700">✔ ${exec}/3</span>`:'<span style="font-size:11px;color:#ccc">—</span>';
-    tr.innerHTML=`<td style="font-weight:700">${c}반</td><td>${g}조</td><td style="font-size:12px;color:#888;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${data?data.names:'-'}</td><td>${execBadge}</td><td>${chip}</td>`;
+    tr.innerHTML=`<td style="font-weight:700">${c}반</td><td>${g}조</td><td style="font-size:12px;color:#888;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${data?data.names:'-'}</td><td>${execBadge}</td><td>${chip}</td>`;
+    tr.style.cursor='pointer';
     tr.onclick=()=>openModal(key);
     tbody.appendChild(tr);
   }
@@ -417,10 +418,11 @@ function renderAdmin(){
   document.getElementById('stat-none').textContent=noneCnt;
 }
 
-/* ── 관리자 모달 ── */
+/* ── 관리자 상세 모달 ── */
 function openModal(key){
   const data=schedules[key];
-  if(!data){alert('아직 신청하지 않은 조입니다.');return;}
+  if(!data){ alert('아직 신청하지 않은 조입니다.'); return; }
+  currentModalKey=key;
   const [c,g]=key.split('-');
   document.getElementById('modal-title').textContent=`${c}반 ${g}조 일정`;
   document.getElementById('modal-names').textContent='조원: '+data.names;
@@ -434,19 +436,17 @@ function openModal(key){
     if(s.date){
       inner+=`<div class="modal-sess-date">${s.date}</div>`;
       inner+=`<div class="modal-sess-detail">${TIME_LABELS[s.time]} (${TIME_TIMES[s.time]}) &nbsp;📍${s.loc}</div>`;
-      // 시행여부 토글
       inner+=`<div style="font-size:11px;font-weight:700;color:#999;text-transform:uppercase;margin-bottom:6px">교사 시행 확인</div>`;
       inner+=`<div class="teacher-exec-row">
         <button class="teacher-exec-btn${s.executed===true?' yes':''}" onclick="teacherExec('${key}',${i},true)">✔ 시행 완료</button>
         <button class="teacher-exec-btn${s.executed===false?' no':''}" onclick="teacherExec('${key}',${i},false)">✕ 미시행</button>
       </div>`;
-      // 참여 학생
       if(members.length>0){
         inner+=`<div style="font-size:11px;font-weight:700;color:#999;text-transform:uppercase;margin-bottom:6px">참여 학생</div>`;
         inner+=`<div class="modal-member-list">`;
         members.forEach(m=>{
           const present=s.presentMembers&&s.presentMembers.includes(m);
-          inner+=`<span class="member-tag${present?' present':' absent'}">${present?'✓':''} ${m}</span>`;
+          inner+=`<span class="member-tag ${present?'present':'absent'}">${present?'✓ ':''} ${m}</span>`;
         });
         inner+=`</div>`;
       }
@@ -461,33 +461,64 @@ function openModal(key){
 
 function teacherExec(key, si, val){
   if(!schedules[key]) return;
-  schedules[key].sessions[si].executed=val;
-  openModal(key); // 재렌더
+  schedules[key].sessions[si].executed = schedules[key].sessions[si].executed===val ? null : val;
+  openModal(key);
 }
 
-function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); renderAdmin(); }
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  currentModalKey=null;
+  renderAdmin();
+}
 function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 
-/* ── 학생: 일정 신청 ── */
+/* ── 조 초기화 (모달 내) ── */
+function resetCurrentGroup(){
+  if(!currentModalKey) return;
+  const [c,g]=currentModalKey.split('-');
+  if(!confirm(`${c}반 ${g}조의 모든 데이터를 초기화할까요?\n이 작업은 되돌릴 수 없습니다.`)) return;
+  delete schedules[currentModalKey];
+  closeModal();
+}
+
+/* ── 학급 초기화 모달 ── */
+function openResetModal(){ document.getElementById('reset-modal-overlay').classList.add('open'); }
+function closeResetModal(){ document.getElementById('reset-modal-overlay').classList.remove('open'); }
+function closeResetModalOutside(e){ if(e.target===document.getElementById('reset-modal-overlay')) closeResetModal(); }
+
+function resetClass(c){
+  if(!confirm(`${c}반 전체(7개 조) 데이터를 초기화할까요?\n이 작업은 되돌릴 수 없습니다.`)) return;
+  for(let g=1;g<=7;g++) delete schedules[`${c}-${g}`];
+  closeResetModal();
+  renderAdmin();
+  alert(`${c}반 전체가 초기화되었습니다.`);
+}
+
+function resetAll(){
+  if(!confirm('⚠️ 전체 63팀 데이터를 모두 초기화할까요?\n이 작업은 되돌릴 수 없습니다.')) return;
+  schedules={};
+  closeResetModal();
+  renderAdmin();
+  alert('전체 데이터가 초기화되었습니다.');
+}
+
+/* ── 일정 신청 ── */
 function goToSchedule(){
   if(!S.cls||!S.grp) return;
-  const key=`${S.cls}-${S.grp}`, ex=schedules[key];
-  // 이미 일정 있으면 마이페이지로
+  const ex=schedules[myKey()];
   if(ex && ex.sessions.filter(s=>s.date).length>0){
     S.names=ex.names;
     S.sessions=JSON.parse(JSON.stringify(ex.sessions));
-    goMypage();
+    showMypage();
     return;
   }
   S.names=ex?ex.names:'';
-  S.sessions=ex?JSON.parse(JSON.stringify(ex.sessions)):mkBlankSessions();
-  show('view-schedule');
+  S.sessions=ex?JSON.parse(JSON.stringify(ex.sessions)):blankSessions();
+  showView('view-schedule');
   document.getElementById('schedule-title').textContent=`${S.cls}반 ${S.grp}조 일정 신청`;
   document.getElementById('schedule-sub').textContent='조원 이름과 3회 캠페인 일정을 입력해주세요';
   showStep('names');
 }
-
-function show(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
 function showStep(step){
   document.getElementById('step-names').style.display='none';
@@ -495,10 +526,12 @@ function showStep(step){
   if(step==='names'){
     document.getElementById('step-names').style.display='block';
     document.getElementById('names-input').value=S.names;
-    setDots(1); document.getElementById('step-label').textContent='조원 이름';
+    setDots(1);
+    document.getElementById('step-label').textContent='조원 이름';
   } else {
     document.getElementById('step-sessions').style.display='block';
-    setDots(2); document.getElementById('step-label').textContent='3회 일정 선택';
+    setDots(2);
+    document.getElementById('step-label').textContent='3회 일정 선택';
     renderSessions();
   }
 }
@@ -507,23 +540,24 @@ function setDots(active){
   [1,2,3,4].forEach(i=>{
     const d=document.getElementById('sd'+i);
     d.className='step-dot'+(i<active?' done':i===active?' active':'');
-    d.textContent=i<active?'✓':i;
+    d.textContent=i<active?'✓':String(i);
   });
 }
 
 function nextFromNames(){
   const v=document.getElementById('names-input').value.trim();
-  if(!v){alert('조원 이름을 입력해주세요.');return;}
+  if(!v){ alert('조원 이름을 입력해주세요.'); return; }
   S.names=v; showStep('sessions');
 }
 
 function renderSessions(){
-  const c=document.getElementById('sessions-container'); c.innerHTML='';
+  const cont=document.getElementById('sessions-container'); cont.innerHTML='';
   S.sessions.forEach((sess,i)=>{
     const div=document.createElement('div');
     if(sess.date&&sess.time&&sess.loc){
       div.className='session-done-card';
-      div.innerHTML=`<div class="session-done-label">${i+1}회차 ✓</div>
+      div.innerHTML=`
+        <div class="session-done-label">${i+1}회차 ✓</div>
         <div class="session-done-date">${sess.date}</div>
         <div class="session-done-detail">${TIME_LABELS[sess.time]} (${TIME_TIMES[sess.time]})</div>
         <div class="session-done-detail">📍 ${sess.loc}</div>
@@ -532,7 +566,7 @@ function renderSessions(){
       div.className='card';
       div.innerHTML=`<div class="section-label">${i+1}회차 — 일정 선택</div>`+buildPicker(i);
     }
-    c.appendChild(div);
+    cont.appendChild(div);
   });
   document.getElementById('btn-submit').disabled=!S.sessions.every(s=>s.date&&s.time&&s.loc);
 }
@@ -541,11 +575,14 @@ function buildPicker(si){
   const y=S.calY, m=S.calM;
   const first=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
   const today=new Date(); today.setHours(0,0,0,0);
-  let h=`<div class="calendar"><div class="cal-header">
-    <button class="cal-nav" onclick="calNav(${si},-1)">‹</button>
-    <span class="cal-title">${y}년 ${MONTHS[m]}</span>
-    <button class="cal-nav" onclick="calNav(${si},1)">›</button>
-  </div><div class="cal-grid">`;
+
+  let h=`<div class="calendar">
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calNav(${si},-1)">‹</button>
+      <span class="cal-title">${y}년 ${MONTHS[m]}</span>
+      <button class="cal-nav" onclick="calNav(${si},1)">›</button>
+    </div>
+    <div class="cal-grid">`;
   DAYS.forEach(d=>{ h+=`<div class="cal-day-label">${d}</div>`; });
   for(let i=0;i<first;i++) h+=`<div class="cal-day empty"></div>`;
   for(let d=1;d<=days;d++){
@@ -555,14 +592,17 @@ function buildPicker(si){
     const sel=S.sessions[si].date===ds;
     const isTod=dt.getTime()===today.getTime();
     let cls='cal-day';
-    if(sel) cls+=' selected'; else if(past||wknd) cls+=' past'; else if(isTod) cls+=' today';
+    if(sel) cls+=' selected';
+    else if(past||wknd) cls+=' past';
+    else if(isTod) cls+=' today';
     if(past||wknd) h+=`<div class="${cls}">${d}</div>`;
     else h+=`<div class="${cls}" onclick="pickDate(${si},'${ds}')">${d}</div>`;
   }
   h+=`</div></div>`;
+
   if(S.sessions[si].date){
+    const date=S.sessions[si].date, mo=schedules[myKey()];
     h+=`<div class="section-label" style="margin-top:12px">시간대 선택</div><div class="time-list">`;
-    const date=S.sessions[si].date, mk=`${S.cls}-${S.grp}`, mo=schedules[mk];
     ['morning','lunch','after'].forEach(t=>{
       const locs=LOCATIONS[t];
       const allFull=locs.every(l=>{ const cnt=getSlotCount(date,t,l); const mine=mo&&mo.sessions.some(s=>s.date===date&&s.time===t&&s.loc===l); return !mine&&cnt>=MAX_SLOT; });
@@ -575,11 +615,13 @@ function buildPicker(si){
     });
     h+=`</div>`;
   }
+
   if(S.sessions[si].date&&S.sessions[si].time){
-    const t=S.sessions[si].time, date=S.sessions[si].date, mk=`${S.cls}-${S.grp}`, mo=schedules[mk];
+    const t=S.sessions[si].time, date=S.sessions[si].date, mo=schedules[myKey()];
     h+=`<div class="section-label" style="margin-top:4px">장소 선택</div><div class="loc-grid">`;
     LOCATIONS[t].forEach(l=>{
-      const cnt=getSlotCount(date,t,l), mine=mo&&mo.sessions.some(s=>s.date===date&&s.time===t&&s.loc===l);
+      const cnt=getSlotCount(date,t,l);
+      const mine=mo&&mo.sessions.some(s=>s.date===date&&s.time===t&&s.loc===l);
       const full=!mine&&cnt>=MAX_SLOT, sel=S.sessions[si].loc===l, rem=MAX_SLOT-cnt;
       h+=`<button class="slot-btn${sel?' selected':''}" ${full&&!sel?'disabled':''} onclick="pickLoc(${si},'${l}')">
         <div class="slot-label">${l}${full&&!sel?'<span class="full-badge">마감</span>':rem<=2&&!full?`<span class="avail-badge">잔여 ${rem}</span>`:''}</div>
@@ -597,9 +639,8 @@ function pickLoc(si,l){ S.sessions[si].loc=l; renderSessions(); }
 function clearSess(si){ S.sessions[si]={date:null,time:null,loc:null,executed:null,presentMembers:[]}; renderSessions(); }
 
 function submitSchedule(){
-  const key=`${S.cls}-${S.grp}`;
-  schedules[key]={names:S.names, sessions:JSON.parse(JSON.stringify(S.sessions))};
-  show('view-success');
+  schedules[myKey()]={names:S.names, sessions:JSON.parse(JSON.stringify(S.sessions))};
+  showView('view-success');
   document.getElementById('success-subtitle').textContent=`${S.cls}반 ${S.grp}조 · 조원 ${S.names.split(/[,\n]/).filter(n=>n.trim()).length}명`;
   const cont=document.getElementById('success-sessions'); cont.innerHTML='';
   S.sessions.forEach((s,i)=>{
@@ -609,16 +650,20 @@ function submitSchedule(){
   });
 }
 
-/* ── 마이페이지 (시행여부 + 참여학생) ── */
+/* ── 마이페이지 ── */
+function showMypage(){
+  document.getElementById('mypage-title').textContent=`${S.cls}반 ${S.grp}조 시행 체크`;
+  document.getElementById('mypage-sub').textContent='각 회차의 시행 여부와 참여 학생을 확인해주세요';
+  showView('view-mypage');
+  renderMypage();
+}
+
 function goMypage(){
-  const key=`${S.cls}-${S.grp}`, data=schedules[key];
+  const data=schedules[myKey()];
   if(!data) return;
   S.sessions=JSON.parse(JSON.stringify(data.sessions));
   S.names=data.names;
-  show('view-mypage');
-  document.getElementById('mypage-title').textContent=`${S.cls}반 ${S.grp}조 시행 체크`;
-  document.getElementById('mypage-sub').textContent='각 회차의 시행 여부와 참여 학생을 확인해주세요';
-  renderMypage();
+  showMypage();
 }
 
 function renderMypage(){
@@ -627,50 +672,45 @@ function renderMypage(){
 
   S.sessions.forEach((sess,si)=>{
     const card=document.createElement('div');
-    card.className='card';
-    card.style.marginBottom='12px';
-
+    card.className='card'; card.style.marginBottom='12px';
     let inner=`<div class="section-label" style="margin-bottom:8px">${si+1}회차</div>`;
+
     if(!sess.date){
       inner+=`<p style="font-size:13px;color:#aaa">아직 일정이 없습니다</p>`;
-      card.innerHTML=inner;
-      cont.appendChild(card);
-      return;
+      card.innerHTML=inner; cont.appendChild(card); return;
     }
 
     inner+=`<div style="font-size:15px;font-weight:700;margin-bottom:2px">${sess.date}</div>`;
     inner+=`<div style="font-size:13px;color:#555;margin-bottom:12px">${TIME_LABELS[sess.time]} (${TIME_TIMES[sess.time]}) &nbsp;📍${sess.loc}</div>`;
 
-    // 시행여부
     inner+=`<div class="section-label">시행 여부</div>`;
     inner+=`<div class="exec-row">
       <button class="exec-btn${sess.executed===true?' yes':''}" onclick="toggleExec(${si},true)">✔ 시행 완료</button>
       <button class="exec-btn${sess.executed===false?' no':''}" onclick="toggleExec(${si},false)">✕ 미시행</button>
     </div>`;
 
-    // 참여학생 체크
     if(members.length>0){
-      inner+=`<div class="section-label" style="margin-top:12px">참여 학생 체크</div>`;
-      inner+=`<div style="display:flex;justify-content:flex-end;margin-bottom:6px">
-        <button onclick="checkAll(${si})" style="background:none;border:none;font-size:12px;color:#185FA5;cursor:pointer;font-family:inherit;font-weight:600">전체 선택</button>
-        <span style="color:#ddd;margin:0 6px">|</span>
-        <button onclick="uncheckAll(${si})" style="background:none;border:none;font-size:12px;color:#888;cursor:pointer;font-family:inherit;font-weight:600">전체 해제</button>
+      const cnt=sess.presentMembers?sess.presentMembers.length:0;
+      inner+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:4px">
+        <div class="section-label" style="margin-bottom:0">참여 학생 체크</div>
+        <div style="display:flex;gap:8px">
+          <button onclick="checkAll(${si})" style="background:none;border:none;font-size:12px;color:#185FA5;cursor:pointer;font-family:inherit;font-weight:700">전체선택</button>
+          <button onclick="uncheckAll(${si})" style="background:none;border:none;font-size:12px;color:#888;cursor:pointer;font-family:inherit;font-weight:700">전체해제</button>
+        </div>
       </div>`;
-      inner+=`<div class="member-check-list" id="members-${si}">`;
+      inner+=`<div class="member-check-list" id="mlist-${si}">`;
       members.forEach((m,mi)=>{
         const checked=sess.presentMembers&&sess.presentMembers.includes(m);
-        inner+=`<label class="member-check-item${checked?' checked':''}" id="mitem-${si}-${mi}">
-          <input type="checkbox" id="chk-${si}-${mi}" ${checked?'checked':''} onchange="toggleMember(${si},${mi},'${m.replace(/'/g,"\\'")}')">
-          <label for="chk-${si}-${mi}" style="cursor:pointer">${m}</label>
-        </label>`;
+        inner+=`<div class="member-check-item${checked?' checked':''}" onclick="toggleMember(${si},${mi})">
+          <input type="checkbox" id="chk-${si}-${mi}" ${checked?'checked':''} onclick="event.stopPropagation();toggleMember(${si},${mi})">
+          <span>${m}</span>
+        </div>`;
       });
       inner+=`</div>`;
-      const cnt=sess.presentMembers?sess.presentMembers.length:0;
-      inner+=`<div id="attend-count-${si}" style="font-size:12px;color:#185FA5;font-weight:600;margin-top:6px;text-align:right">${cnt}/${members.length}명 참여</div>`;
+      inner+=`<div class="attend-count" id="acnt-${si}">${cnt}/${members.length}명 참여</div>`;
     }
 
-    card.innerHTML=inner;
-    cont.appendChild(card);
+    card.innerHTML=inner; cont.appendChild(card);
   });
 }
 
@@ -679,19 +719,14 @@ function toggleExec(si, val){
   renderMypage();
 }
 
-function toggleMember(si, mi, name){
-  const chk=document.getElementById(`chk-${si}-${mi}`);
-  const item=document.getElementById(`mitem-${si}-${mi}`);
-  const pm=S.sessions[si].presentMembers||(S.sessions[si].presentMembers=[]);
-  if(chk.checked){
-    if(!pm.includes(name)) pm.push(name);
-    item.classList.add('checked');
-  } else {
-    S.sessions[si].presentMembers=pm.filter(n=>n!==name);
-    item.classList.remove('checked');
-  }
+function toggleMember(si, mi){
   const members=S.names.split(/[,\n]/).map(n=>n.trim()).filter(Boolean);
-  document.getElementById(`attend-count-${si}`).textContent=`${S.sessions[si].presentMembers.length}/${members.length}명 참여`;
+  const name=members[mi];
+  if(!S.sessions[si].presentMembers) S.sessions[si].presentMembers=[];
+  const pm=S.sessions[si].presentMembers;
+  const idx=pm.indexOf(name);
+  if(idx>=0) pm.splice(idx,1); else pm.push(name);
+  renderMypage();
 }
 
 function checkAll(si){
@@ -705,16 +740,22 @@ function uncheckAll(si){
 }
 
 function saveMypage(){
-  const key=`${S.cls}-${S.grp}`;
+  const key=myKey();
   if(!schedules[key]) return;
   schedules[key].sessions=JSON.parse(JSON.stringify(S.sessions));
   alert('저장되었습니다! ✅');
-  goHome();
+}
+
+function editSchedule(){
+  showView('view-schedule');
+  document.getElementById('schedule-title').textContent=`${S.cls}반 ${S.grp}조 일정 수정`;
+  document.getElementById('schedule-sub').textContent='수정할 회차의 날짜·시간·장소를 변경해주세요';
+  showStep('sessions');
 }
 
 /* ── 처음으로 ── */
 function goHome(){
-  show('view-home');
+  showView('view-home');
   S.cls=null; S.grp=null;
   document.querySelectorAll('.class-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('group-card').style.display='none';
