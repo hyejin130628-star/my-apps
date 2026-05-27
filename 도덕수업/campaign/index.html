@@ -297,8 +297,14 @@ function blankSessions(){
 /* ── API ── */
 async function apiGet(){
   try {
-    const res = await fetch(API + '?t=' + Date.now(), {mode:'cors'});
-    const data = await res.json();
+    const res = await fetch(API + '?t=' + Date.now(), {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-store',
+      headers: {'Cache-Control': 'no-cache'}
+    });
+    const text = await res.text();
+    const data = JSON.parse(text);
     schedules = data || {};
     document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-ok">🟢 서버 연결됨</span>';
     document.getElementById('last-sync').textContent = '최근 업데이트: ' + new Date().toLocaleTimeString('ko-KR');
