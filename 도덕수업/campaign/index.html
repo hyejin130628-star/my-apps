@@ -296,46 +296,26 @@ function blankSessions(){
 
 /* ── API ── */
 async function apiGet(){
-  return new Promise(function(resolve) {
-    const cbName = 'cb_' + Date.now();
-    window[cbName] = function(data) {
-      schedules = data || {};
-      document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-ok">🟢 서버 연결됨</span>';
-      document.getElementById('last-sync').textContent = '최근 업데이트: ' + new Date().toLocaleTimeString('ko-KR');
-      delete window[cbName];
-      document.getElementById('jsonp-script') && document.getElementById('jsonp-script').remove();
-      resolve(true);
-    };
-    const s = document.createElement('script');
-    s.id = 'jsonp-script';
-    s.src = API + '?callback=' + cbName + '&t=' + Date.now();
-    s.onerror = function() {
-      document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-fail">🔴 오프라인 모드</span>';
-      delete window[cbName];
-      s.remove();
-      resolve(false);
-    };
-    document.head.appendChild(s);
-    setTimeout(function() {
-      if (window[cbName]) {
-        document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-fail">🔴 오프라인 모드</span>';
-        delete window[cbName];
-        s.remove();
-        resolve(false);
-      }
-    }, 8000);
-  });
+  try {
+    const res = await fetch(API + '?action=get&t=' + Date.now());
+    const text = await res.text();
+    const data = JSON.parse(text);
+    schedules = data || {};
+    document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-ok">🟢 서버 연결됨</span>';
+    document.getElementById('last-sync').textContent = '최근 업데이트: ' + new Date().toLocaleTimeString('ko-KR');
+    return true;
+  } catch(e) {
+    document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-fail">🔴 오프라인 모드</span>';
+    return false;
+  }
 }
 
 async function apiSet(key, value){
   try {
-    // no-cors로 POST — 응답은 못 읽지만 서버엔 저장됨
-    await fetch(API, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain'},
-      body: JSON.stringify({key: key, value: value})
-    });
+    const encoded = encodeURIComponent(JSON.stringify(value));
+    const url = API + '?action=set&key=' + encodeURIComponent(key) + '&value=' + encoded;
+    const res = await fetch(url);
+    await res.text();
     return true;
   } catch(e) {
     alert('저장 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.');
@@ -345,12 +325,9 @@ async function apiSet(key, value){
 
 async function apiDelete(key){
   try {
-    await fetch(API, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain'},
-      body: JSON.stringify({key: key, value: 'DELETE'})
-    });
+    const url = API + '?action=set&key=' + encodeURIComponent(key) + '&value=DELETE';
+    const res = await fetch(url);
+    await res.text();
     return true;
   } catch(e) { return false; }
 }
