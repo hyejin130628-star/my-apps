@@ -296,23 +296,35 @@ function blankSessions(){
 
 /* ── API ── */
 async function apiGet(){
-  try {
-    const res = await fetch(API + '?t=' + Date.now(), {
-      method: 'GET',
-      mode: 'cors',
-      cache: 'no-store',
-      headers: {'Cache-Control': 'no-cache'}
-    });
-    const text = await res.text();
-    const data = JSON.parse(text);
-    schedules = data || {};
-    document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-ok">🟢 서버 연결됨</span>';
-    document.getElementById('last-sync').textContent = '최근 업데이트: ' + new Date().toLocaleTimeString('ko-KR');
-    return true;
-  } catch(e) {
-    document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-fail">🔴 오프라인 모드</span>';
-    return false;
-  }
+  return new Promise(function(resolve) {
+    const cbName = 'cb_' + Date.now();
+    window[cbName] = function(data) {
+      schedules = data || {};
+      document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-ok">🟢 서버 연결됨</span>';
+      document.getElementById('last-sync').textContent = '최근 업데이트: ' + new Date().toLocaleTimeString('ko-KR');
+      delete window[cbName];
+      document.getElementById('jsonp-script') && document.getElementById('jsonp-script').remove();
+      resolve(true);
+    };
+    const s = document.createElement('script');
+    s.id = 'jsonp-script';
+    s.src = API + '?callback=' + cbName + '&t=' + Date.now();
+    s.onerror = function() {
+      document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-fail">🔴 오프라인 모드</span>';
+      delete window[cbName];
+      s.remove();
+      resolve(false);
+    };
+    document.head.appendChild(s);
+    setTimeout(function() {
+      if (window[cbName]) {
+        document.getElementById('sync-status').innerHTML = '<span class="sync-badge sync-fail">🔴 오프라인 모드</span>';
+        delete window[cbName];
+        s.remove();
+        resolve(false);
+      }
+    }, 8000);
+  });
 }
 
 async function apiSet(key, value){
