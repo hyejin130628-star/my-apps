@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상일중학교 수행평가 일정 관리</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a1a;min-height:100vh}
+.app{max-width:880px;margin:0 auto;padding:1.25rem 1rem}
+.tabs{display:flex;border-bottom:1px solid #e0e0e0;margin-bottom:1.25rem}
+.tab{padding:9px 18px;font-size:14px;cursor:pointer;border:none;background:none;color:#888;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.active{color:#1a1a1a;border-bottom:2px solid #1a1a1a;font-weight:600}
+.tab:hover:not(.active){color:#333}
+.section{display:none}.section.active{display:block}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:3px 10px;border-radius:8px;font-weight:500}
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.badge-green{background:#dcfce7;color:#166534}
+.badge-yellow{background:#fef3c7;color:#92400e;cursor:pointer}
+.badge-purple{background:#ede9fe;color:#6d28d9}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.form-col{display:flex;flex-direction:column;gap:4px}
+label{font-size:13px;color:#666}
+input,select,textarea{width:100%;font-size:14px;padding:8px 10px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#1a1a1a;outline:none}
+textarea{resize:vertical;min-height:58px;font-family:inherit}
+.btn{padding:8px 16px;font-size:14px;border:1px solid #ddd;border-radius:8px;cursor:pointer;background:#fff;color:#1a1a1a}
+.btn:hover{background:#f5f5f5}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-p{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.btn-p:hover{background:#333}
+.btn-d{color:#dc2626;border-color:#fca5a5}
+.btn-d:hover{background:#fef2f2}
+.btn-w{color:#d97706;border-color:#fcd34d}
+.btn-w:hover{background:#fffbeb}
+.btn-purple{color:#7c3aed;border-color:#c4b5fd}
+.btn-purple:hover{background:#f5f3ff}
+.exam-list{display:flex;flex-direction:column;gap:8px}
+.exam-item{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:11px 14px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.exam-item.done{opacity:.45}
+.exam-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.exam-meta{flex:1;min-width:0}
+.exam-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.dday{font-size:12px;font-weight:600;padding:3px 9px;border-radius:8px}
+.detail-row{display:flex;gap:6px;margin-top:5px;font-size:12px;align-items:flex-start}
+.dl{flex-shrink:0;font-weight:600;font-size:11px;padding:2px 7px;border-radius:4px;margin-top:1px;white-space:nowrap}
+.dv{color:#555;white-space:pre-wrap;word-break:break-all;line-height:1.5}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.chip{padding:5px 13px;font-size:13px;border-radius:20px;border:1px solid #ddd;cursor:pointer;background:none;color:#666}
+.chip.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-dl{text-align:center;font-size:12px;color:#888;padding:4px 0;font-weight:600}
+.cal-cell{min-height:72px;border:1px solid #e8e8e8;border-radius:8px;padding:5px 6px;cursor:pointer;background:#fff}
+.cal-cell:hover{background:#f9f9f9}
+.cal-cell.today{border-color:#1a1a1a}
+.cal-cell.om .cal-date{color:#ccc}
+.cal-date{font-size:13px;font-weight:600;margin-bottom:3px}
+.cal-ev{font-size:10px;padding:1px 5px;border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:#fff;border-radius:14px;padding:1.5rem;width:360px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.mrow{margin-bottom:10px;display:flex;flex-direction:column;gap:4px}
+.mfooter{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.divider{height:1px;background:#f0f0f0;margin:1.25rem 0}
+.sec-hd{font-size:15px;font-weight:600;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid #f0f0f0}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:9px 22px;border-radius:20px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+.pstr{font-size:12px;margin-top:4px}
+.rbox{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.landing{display:flex;flex-direction:column;align-items:center;padding:2.5rem 1rem}
+.lbox{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:1.5rem;width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.ccard{border:1px solid #e0e0e0;border-radius:10px;padding:12px 14px;cursor:pointer;background:#fff;transition:all .15s}
+.ccard:hover{background:#f5f5f5;border-color:#bbb}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:1rem}
+.class-manage-card{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.loading-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:3rem;color:#888;font-size:14px}
+.spinner{width:20px;height:20px;border:2px solid #e0e0e0;border-top-color:#1a1a1a;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.console-box{background:#1a1a1a;border-radius:10px;padding:1rem 1.25rem;color:#a3e635;font-family:monospace;font-size:12px;line-height:1.9;margin-top:8px;word-break:break-all}
+.console-box b{color:#fff}
+@media(max-width:600px){.form-row,.form-row3{grid-template-columns:1fr}.modal{width:94vw}.cgrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app"><div id="toast" class="toast"></div><div id="root"></div></div>
+<script>
+const GAS = 'https://script.google.com/macros/s/AKfycbzhyoUxB2TjzGTtDfSTPTdFlrhpuqeb6ksicWFbNMU82Tjrc7rTt3y0ObFwxGg_Z23P/exec';
+
+const SC={
+  '국어':['#dbeafe','#1d4ed8'],'수학':['#fef3c7','#92400e'],'영어':['#dcfce7','#166534'],
+  '과학':['#d1fae5','#065f46'],'사회':['#fce7f3','#9d174d'],'역사':['#fee2e2','#991b1b'],
+  '도덕':['#ede9fe','#5b21b6'],'기술가정':['#fed7aa','#7c2d12'],'미술':['#ffedd5','#9a3412'],
+  '음악':['#d9f99d','#3f6212'],'체육':['#f3f4f6','#374151'],
+  '일본어':['#fce7f3','#9d174d'],'한문':['#fef9c3','#713f12'],'진로':['#f0fdf4','#166534']
+};
+const SUBS=Object.keys(SC);
+const PDS=['1교시','2교시','3교시','4교시','5교시','6교시','7교시'];
+const DP='1234';
+const DC={range:['#dbeafe','#1d4ed8'],criteria:['#dcfce7','#166634'],memo:['#fef3c7','#92400e']};
+const DL={range:'시험범위',criteria:'평가기준',memo:'메모'};
+
+// ── JSONP API ──
+let _cbIdx=0;
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    const cbName='_cb'+(++_cbIdx)+'_'+Date.now();
+    const timer=setTimeout(()=>{
+      delete window[cbName];
+      const s=document.getElementById('s_'+cbName);
+      if(s)s.remove();
+      reject(new Error('timeout'));
+    },20000);
+    window[cbName]=function(data){
+      clearTimeout(timer);
+      delete window[cbName];
+      const s=document.getElementById('s_'+cbName);
+      if(s)s.remove();
+      resolve(data);
+    };
+    // payload는 별도 인코딩
+    const parts=[];
+    for(const [k,v] of Object.entries(params)){
+      parts.push(encodeURIComponent(k)+'='+encodeURIComponent(v));
+    }
+    parts.push('callback='+encodeURIComponent(cbName));
+    const s=document.createElement('script');
+    s.id='s_'+cbName;
+    s.src=GAS+'?'+parts.join('&');
+    s.onerror=()=>{
+      clearTimeout(timer);
+      delete window[cbName];
+      s.remove();
+      reject(new Error('script load error'));
+    };
+    document.head.appendChild(s);
+  });
+}
+
+async function apiRead(code){
+  try{return await jsonp({action:'readOne',code});}catch(e){console.error('read err',e);return {};}
+}
+async function apiWrite(code,data){
+  try{
+    // JSON → UTF-8 바이트 → base64로 인코딩해서 안전하게 전달
+    const jsonStr=JSON.stringify(data);
+    const payload=btoa(unescape(encodeURIComponent(jsonStr)));
+    const res=await jsonp({action:'write',code,payload,encoded:'1'});
+    console.log('write result',res);
+    return res;
+  }catch(e){console.error('write err',e);return {error:e.toString()};}
+}
+async function apiReadRegistry(){
+  try{
+    const r=await apiRead('__registry__');
+    return r.classes||[];
+  }catch(e){return [];}
+}
+async function apiWriteRegistry(classes){
+  return await apiWrite('__registry__',{classes});
+}
+
+function getSuperPwd(){return localStorage.getItem('ep8_super_pwd')||DP;}
+function setSuperPwd(p){localStorage.setItem('ep8_super_pwd',p);}
+
+let S={
+  view:'landing',code:'',name:'',role:null,
+  filter:'전체',cy:new Date().getFullYear(),cm:new Date().getMonth(),
+  data:{exams:[],passwords:{entry:DP,admin:DP,monitor:DP},nextId:1},
+  registry:[]
+};
+
+function toast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);
+}
+function loading(msg='불러오는 중...'){
+  document.getElementById('root').innerHTML=`<div class="loading-bar"><div class="spinner"></div>${msg}</div>`;
+}
+function render(){
+  if(S.view==='landing')rLanding();
+  else if(S.view==='super')rSuper();
+  else rMain();
+}
+
+// ══ 랜딩 ══
+async function initLanding(){
+  loading('학급 목록 불러오는 중...');
+  S.registry=await apiReadRegistry();
+  rLanding();
+}
+
+function rLanding(){
+  const reg=S.registry;
+  document.getElementById('root').innerHTML=`
+  <div class="landing">
+    <div style="font-size:13px;font-weight:500;color:#888;margin-bottom:4px;letter-spacing:.5px">SANGIL MIDDLE SCHOOL</div>
+    <div style="font-size:22px;font-weight:700;margin-bottom:6px">상일중학교 수행평가 일정 관리</div>
+    <div style="font-size:14px;color:#666;margin-bottom:2rem;text-align:center;line-height:1.7">우리 반을 선택하고 입장 비밀번호를 입력하세요.</div>
+    <div class="lbox">
+      ${reg.length===0
+        ?`<div style="text-align:center;padding:1.5rem 0;color:#888;font-size:14px;line-height:1.8">등록된 학급이 없습니다.<br><span style="font-size:12px;color:#aaa">관리자가 학급을 먼저 등록해야 합니다.</span></div>`
+        :`<div style="font-size:13px;color:#888;margin-bottom:8px;font-weight:500">학급을 선택하세요</div>
+          <div class="cgrid">${reg.map(r=>`
+            <div class="ccard" onclick="selectClass('${r.code}','${r.name.replace(/'/g,"\\'")}')">
+              <div style="font-size:14px;font-weight:600">${r.name}</div>
+              <div style="font-size:11px;color:#aaa;margin-top:2px">코드: ${r.code}</div>
+            </div>`).join('')}</div>`}
+      <div style="border-top:1px solid #f0f0f0;padding-top:12px;margin-top:4px">
+        <button class="btn btn-sm btn-purple" onclick="goSuper()" style="width:100%">🔐 총괄 관리자</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function selectClass(code,name){
+  S.code=code;S.name=name;
+  showModal(`
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px">📚 ${name}</div>
+    <div style="font-size:13px;color:#888;margin-bottom:1.25rem">입장 비밀번호를 입력하세요.</div>
+    <div class="mrow"><label>입장 비밀번호</label>
+      <input type="password" id="ep" placeholder="비밀번호" onkeydown="if(event.key==='Enter')enterClass()"></div>
+    <div class="mfooter">
+      <button class="btn" onclick="closeModal()">취소</button>
+      <button class="btn btn-p" onclick="enterClass()">입장</button>
+    </div>`);
+  setTimeout(()=>document.getElementById('ep')?.focus(),100);
+}
+
+async function enterClass(){
+  const pwd=document.getElementById('ep').value;
+  closeModal();loading('입장 중...');
+  const data=await apiRead(S.code);
+  if(!data.passwords) data.passwords={entry:DP,admin:DP,monitor:DP};
+  if(!data.exams) data.exams=[];
+  if(!data.nextId) data.nextId=1;
+  if(pwd!==data.passwords.entry){toast('입장 비밀번호가 틀렸습니다.');rLanding();return;}
+  S.data=data;S.role='viewer';S.filter='전체';S.view='main';
+  toast(`${S.name}에 입장했습니다.`);render();
+}
+
+// ══ 총괄 관리자 ══
+function goSuper(){
+  showModal(`
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px">🔐 총괄 관리자</div>
+    <div style="font-size:13px;color:#888;margin-bottom:1.25rem">관리자 비밀번호를 입력하세요.</div>
+    <div class="mrow"><label>비밀번호</label>
+      <input type="password" id="sp" placeholder="비밀번호" onkeydown="if(event.key==='Enter')loginSuper()"></div>
+    <div class="mfooter">
+      <button class="btn" onclick="closeModal()">취소</button>
+      <button class="btn btn-p" onclick="loginSuper()">로그인</button>
+    </div>`);
+  setTimeout(()=>document.getElementById('sp')?.focus(),100);
+}
+
+async function loginSuper(){
+  const p=document.getElementById('sp').value;
+  if(p!==getSuperPwd()){toast('비밀번호가 틀렸습니다.');return;}
+  closeModal();loading('데이터 불러오는 중...');
+  S.registry=await apiReadRegistry();
+  S.view='super';render();
+}
+
+function rSuper(){
+  const reg=S.registry;
+  document.getElementById('root').innerHTML=`
+  <div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:8px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn btn-sm" onclick="S.view='landing';render()">←</button>
+        <div><div style="font-size:18px;font-weight:700">총괄 관리자 패널</div>
+          <div style="font-size:12px;color:#888">학급 등록 및 전체 관리</div></div>
+      </div>
+      <span class="badge badge-purple">🔐 관리자 모드</span>
+    </div>
+    <div class="sec-hd">학급 등록</div>
+    <div class="card">
+      <div class="form-row" style="margin-bottom:0">
+        <div class="form-col"><label>학급 코드</label>
+          <input id="nc" placeholder="예: 3-2" maxlength="20" oninput="this.value=this.value.replace(/\\s/g,'')"></div>
+        <div class="form-col"><label>학급 이름</label>
+          <input id="nn" placeholder="예: 3학년 2반"></div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:#888;background:#f8f8f8;border-radius:8px;padding:8px 10px">
+        ℹ 등록 시 모든 비밀번호(입장·선생님·반장)가 <b>${DP}</b>로 자동 설정됩니다.
+      </div>
+      <div style="margin-top:10px"><button class="btn btn-p" onclick="addClassBySuper()">+ 학급 추가</button></div>
+    </div>
+    <div class="sec-hd" style="margin-top:1.5rem">등록된 학급 (${reg.length}개)</div>
+    ${reg.length===0
+      ?`<div style="color:#aaa;font-size:14px;padding:1rem 0">아직 등록된 학급이 없습니다.</div>`
+      :`<div class="admin-grid">${reg.map(r=>`
+          <div class="class-manage-card">
+            <div><div style="font-size:14px;font-weight:600">${r.name}</div>
+              <div style="font-size:11px;color:#aaa;margin-top:2px">코드: ${r.code}</div></div>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-sm btn-w" onclick="resetClassPwds('${r.code}','${r.name.replace(/'/g,"\\'")}')">초기화</button>
+              <button class="btn btn-sm btn-d" onclick="deleteClass('${r.code}','${r.name.replace(/'/g,"\\'")}')">삭제</button>
+            </div>
+          </div>`).join('')}</div>`}
+    <div class="divider"></div>
+    <div class="sec-hd">관리자 비밀번호 변경</div>
+    <div class="card" style="max-width:360px">
+      <div class="form-col" style="margin-bottom:8px"><label>현재 비밀번호</label><input type="password" id="sc0" placeholder="현재 비밀번호"></div>
+      <div class="form-col" style="margin-bottom:4px"><label>새 비밀번호</label><input type="password" id="sc1" placeholder="새 비밀번호" oninput="chkStr('s')"></div>
+      <div class="pstr" id="ps-s" style="margin-bottom:8px"></div>
+      <div class="form-col" style="margin-bottom:12px"><label>확인</label><input type="password" id="sc2" placeholder="다시 입력"></div>
+      <button class="btn btn-p" onclick="changeSuperPwd()">변경</button>
+    </div>
+    <div class="divider"></div>
+    <div class="sec-hd">🔑 비밀번호 분실 시 초기화 방법</div>
+    <div style="font-size:13px;color:#555;margin-bottom:10px;line-height:1.7">브라우저에서 <b>F12 → Console 탭</b>을 열고 아래 명령어를 입력하세요.</div>
+    <div class="console-box"><b>// 관리자 비밀번호를 1234로 초기화</b><br>localStorage.removeItem('ep8_super_pwd'); location.reload();</div>
+  </div>`;
+}
+
+async function addClassBySuper(){
+  const code=document.getElementById('nc').value.trim();
+  const name=document.getElementById('nn').value.trim();
+  if(!code||!name){toast('코드와 이름을 모두 입력해주세요.');return;}
+  if(S.registry.find(r=>r.code===code)){toast('이미 등록된 코드입니다.');return;}
+  loading('등록 중...');
+  await apiWrite(code,{exams:[],passwords:{entry:DP,admin:DP,monitor:DP},nextId:1});
+  S.registry.push({code,name});
+  await apiWriteRegistry(S.registry);
+  toast(`${name} 등록 완료!`);
+  S.registry=await apiReadRegistry();
+  rSuper();
+}
+
+async function resetClassPwds(code,name){
+  if(!confirm(`[${name}]의 모든 비밀번호를 '${DP}'로 초기화할까요?`))return;
+  loading('초기화 중...');
+  const data=await apiRead(code);
+  data.passwords={entry:DP,admin:DP,monitor:DP};
+  await apiWrite(code,data);
+  toast(`${name} 비밀번호 초기화 완료!`);
+  S.registry=await apiReadRegistry();
+  rSuper();
+}
+
+async function deleteClass(code,name){
+  if(!confirm(`[${name}]을 삭제할까요?`))return;
+  loading('삭제 중...');
+  S.registry=S.registry.filter(r=>r.code!==code);
+  await apiWriteRegistry(S.registry);
+  toast(`${name} 삭제됐습니다.`);
+  rSuper();
+}
+
+function changeSuperPwd(){
+  const cur=document.getElementById('sc0').value;
+  const nw=document.getElementById('sc1').value;
+  const cf=document.getElementById('sc2').value;
+  if(cur!==getSuperPwd()){toast('현재 비밀번호가 틀렸습니다.');return;}
+  if(nw.length<4){toast('4자 이상 입력해주세요.');return;}
+  if(nw!==cf){toast('새 비밀번호가 일치하지 않습니다.');return;}
+  setSuperPwd(nw);toast('관리자 비밀번호가 변경됐습니다!');
+  ['sc0','sc1','sc2'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('ps-s').textContent='';
+}
+
+// ══ 메인 앱 ══
+function rMain(){
+  document.getElementById('root').innerHTML=`
+  <div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn btn-sm" onclick="S.view='landing';S.role=null;initLanding()">←</button>
+        <div><div style="font-size:18px;font-weight:700">${S.name}</div>
+          <div style="font-size:12px;color:#888">코드: ${S.code}</div></div>
+      </div>
+      <div id="rb"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" id="tb-list" onclick="sw('list',this)">📋 목록</button>
+      <button class="tab" id="tb-cal" onclick="sw('cal',this)">📅 달력</button>
+      <button class="tab" id="tb-adm" onclick="sw('adm',this)">⚙️ 관리</button>
+    </div>
+    <div id="tab-list" class="section active">
+      <div class="filter-bar" id="fb"></div>
+      <div class="exam-list" id="el"></div>
+    </div>
+    <div id="tab-cal" class="section">
+      <div class="cal-hd">
+        <button class="btn" onclick="chM(-1)">‹</button>
+        <div style="font-size:16px;font-weight:700" id="ct"></div>
+        <button class="btn" onclick="chM(1)">›</button>
+      </div>
+      <div class="cal-grid" id="cg"></div>
+      <div id="cm2"></div>
+    </div>
+    <div id="tab-adm" class="section"><div id="ac"></div></div>
+  </div>`;
+  rBadge();rFilters();rList();rAdminTab();
+}
+
+function rBadge(){
+  const el=document.getElementById('rb');if(!el)return;
+  const m={
+    admin:`<span class="badge badge-blue">🛡 선생님 모드</span>`,
+    monitor:`<span class="badge badge-green">✅ 반장 모드</span>`,
+    viewer:`<span class="badge badge-yellow" onclick="sw('adm',document.getElementById('tb-adm'))">🔒 보기 전용 — 로그인</span>`
+  };
+  el.innerHTML=m[S.role]||'';
+}
+
+async function saveData(){
+  const res=await apiWrite(S.code,S.data);
+  console.log('saveData result',res);
+}
+
+function dd(ds){const t=new Date();t.setHours(0,0,0,0);const d=new Date(ds);d.setHours(0,0,0,0);return Math.round((d-t)/864e5);}
+function ddB(d,done){
+  if(done)return`<span class="dday" style="background:#f3f4f6;color:#888">완료</span>`;
+  if(d<0)return`<span class="dday" style="background:#f3f4f6;color:#888">종료</span>`;
+  if(d===0)return`<span class="dday" style="background:#fee2e2;color:#dc2626">D-day</span>`;
+  if(d<=3)return`<span class="dday" style="background:#fef3c7;color:#d97706">D-${d}</span>`;
+  return`<span class="dday" style="background:#dbeafe;color:#1d4ed8">D-${d}</span>`;
+}
+function rFilters(){
+  const b=document.getElementById('fb');if(!b)return;
+  const u=['전체',...new Set(S.data.exams.map(e=>e.subject))];
+  b.innerHTML=u.map(s=>`<button class="chip${S.filter===s?' active':''}" onclick="sf('${s}')">${s}</button>`).join('');
+}
+function rList(){
+  const el=document.getElementById('el');if(!el)return;
+  let list=S.data.exams.filter(e=>S.filter==='전체'||e.subject===S.filter);
+  list.sort((a,b)=>a.date.localeCompare(b.date));
+  if(!list.length){el.innerHTML=`<div style="color:#888;font-size:14px;padding:2rem 0;text-align:center">등록된 수행평가가 없습니다.</div>`;return;}
+  const ce=S.role==='admin'||S.role==='monitor';
+  el.innerHTML=list.map(e=>{
+    const d=dd(e.date);
+    const[bg,fg]=SC[e.subject]||['#e5e7eb','#374151'];
+    const rows=['range','criteria','memo'].filter(k=>e[k]).map(k=>`
+      <div class="detail-row">
+        <span class="dl" style="background:${DC[k][0]};color:${DC[k][1]}">${DL[k]}</span>
+        <span class="dv">${e[k]}</span>
+      </div>`).join('');
+    return`<div class="exam-item${e.done?' done':''}">
+      <div class="exam-dot" style="background:${fg}"></div>
+      <div class="exam-meta">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span style="font-size:11px;padding:2px 9px;border-radius:12px;background:${bg};color:${fg};font-weight:600">${e.subject}</span>
+          <span style="font-size:14px;font-weight:600">${e.title}</span>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:3px">📅 ${e.date}&nbsp;&nbsp;🕐 ${e.period||'교시 미정'}</div>
+        ${rows}
+      </div>
+      <div class="exam-actions">
+        ${ddB(d,e.done)}
+        ${ce?`<button class="btn btn-sm" onclick="tD(${e.id})">${e.done?'↩':'✓'}</button>`:''}
+        ${ce?`<button class="btn btn-sm btn-d" onclick="dE(${e.id})">🗑</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+function sf(s){S.filter=s;rFilters();rList();}
+async function tD(id){
+  const e=S.data.exams.find(x=>x.id===id);
+  if(e){e.done=!e.done;rList();rCal();await saveData();}
+}
+async function dE(id){
+  if(!confirm('삭제할까요?'))return;
+  S.data.exams=S.data.exams.filter(x=>x.id!==id);
+  rFilters();rList();rCal();
+  await saveData();toast('삭제했습니다.');
+}
+
+function rCal(){
+  const g=document.getElementById('cg');if(!g)return;
+  document.getElementById('ct').textContent=`${S.cy}년 ${S.cm+1}월`;
+  const days=['일','월','화','수','목','금','토'];
+  let h=days.map(d=>`<div class="cal-dl">${d}</div>`).join('');
+  const f=new Date(S.cy,S.cm,1),l=new Date(S.cy,S.cm+1,0);
+  const t=new Date();t.setHours(0,0,0,0);
+  let cells=[];
+  for(let i=0;i<f.getDay();i++)cells.push({date:new Date(S.cy,S.cm,-(f.getDay()-1-i)),o:true});
+  for(let i=1;i<=l.getDate();i++)cells.push({date:new Date(S.cy,S.cm,i),o:false});
+  while(cells.length%7!==0)cells.push({date:new Date(S.cy,S.cm+1,cells.length-l.getDate()-f.getDay()+1),o:true});
+  const ca=S.role==='admin'||S.role==='monitor';
+  cells.forEach(c=>{
+    const ds=`${c.date.getFullYear()}-${String(c.date.getMonth()+1).padStart(2,'0')}-${String(c.date.getDate()).padStart(2,'0')}`;
+    const it=c.date.getTime()===t.getTime();
+    const ev=S.data.exams.filter(e=>e.date===ds).map(e=>{
+      const[bg,fg]=SC[e.subject]||['#e5e7eb','#374151'];
+      return`<div class="cal-ev" style="background:${bg};color:${fg}">${e.subject} ${e.title}</div>`;
+    }).join('');
+    h+=`<div class="cal-cell${c.o?' om':''}${it?' today':''}" onclick="${ca?`oCM('${ds}')`:''}">
+      <div class="cal-date" style="${it?'color:#1d4ed8':''}">${c.date.getDate()}</div>${ev}</div>`;
+  });
+  g.innerHTML=h;
+}
+function chM(d){S.cm+=d;if(S.cm>11){S.cm=0;S.cy++;}if(S.cm<0){S.cm=11;S.cy--;}rCal();}
+function sO(sel){return SUBS.map(s=>`<option${s===sel?' selected':''}>${s}</option>`).join('');}
+
+function oCM(ds){
+  showModal(`
+    <div style="font-size:16px;font-weight:700;margin-bottom:1rem">수행평가 추가 — ${ds}</div>
+    <div class="mrow"><label>과목</label><select id="ms">${sO('')}</select></div>
+    <div class="mrow"><label>제목</label><input id="mt" placeholder="예: 말하기 평가"></div>
+    <div class="mrow"><label>교시</label><select id="mp"><option value="">미정</option>${PDS.map(p=>`<option>${p}</option>`).join('')}</select></div>
+    <div class="mrow"><label>시험 범위</label><textarea id="mr" placeholder="예: 교과서 p.34~56"></textarea></div>
+    <div class="mrow"><label>평가 기준</label><textarea id="mc" placeholder="예: 발음 40%, 내용 60%"></textarea></div>
+    <div class="mrow"><label>메모</label><textarea id="mm" placeholder="예: 준비물, 유의사항"></textarea></div>
+    <div class="mfooter">
+      <button class="btn" onclick="closeModal()">취소</button>
+      <button class="btn btn-p" onclick="sCM('${ds}')">저장</button>
+    </div>`);
+}
+async function sCM(ds){
+  const sub=document.getElementById('ms').value,title=document.getElementById('mt').value.trim();
+  const period=document.getElementById('mp').value;
+  const range=document.getElementById('mr').value.trim();
+  const criteria=document.getElementById('mc').value.trim();
+  const memo=document.getElementById('mm').value.trim();
+  if(!title){toast('제목을 입력해주세요.');return;}
+  S.data.exams.push({id:S.data.nextId++,subject:sub,title,date:ds,period,range,criteria,memo,done:false});
+  closeModal();rFilters();rList();rCal();
+  await saveData();toast('추가됐습니다!');
+}
+
+function rAdminTab(){
+  const el=document.getElementById('ac');if(!el)return;
+  const ia=S.role==='admin';
+  if(S.role==='viewer'){
+    el.innerHTML=`<div style="max-width:320px">
+      <div style="font-size:16px;font-weight:700;margin-bottom:1rem">선생님 / 반장 로그인</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:12px">
+        <div class="form-col"><label>역할</label>
+          <select id="rr"><option value="admin">선생님</option><option value="monitor">반장 / 부반장</option></select></div>
+        <div class="form-col"><label>비밀번호</label>
+          <input type="password" id="rp" placeholder="비밀번호" onkeydown="if(event.key==='Enter')dL()"></div>
+        <button class="btn btn-p" onclick="dL()">로그인</button>
+        <div style="font-size:12px;color:#aaa">초기 비밀번호: ${DP}</div>
+      </div></div>`;
+    return;
+  }
+  el.innerHTML=`<div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <div style="font-size:16px;font-weight:700">${ia?'선생님':'반장'} 관리 패널</div>
+      <button class="btn btn-sm btn-d" onclick="dLo()">로그아웃</button>
+    </div>
+    <div class="sec-hd">수행평가 추가</div>
+    <div class="card">
+      <div class="form-row">
+        <div class="form-col"><label>과목</label><select id="fs">${sO('')}</select></div>
+        <div class="form-col"><label>제목</label><input id="ft" placeholder="예: 단원평가"></div>
+      </div>
+      <div class="form-row3">
+        <div class="form-col"><label>날짜</label><input type="date" id="fd"></div>
+        <div class="form-col"><label>교시</label>
+          <select id="fp"><option value="">미정</option>${PDS.map(p=>`<option>${p}</option>`).join('')}</select></div>
+        <div class="form-col"></div>
+      </div>
+      <div class="form-col" style="margin-bottom:10px"><label>시험 범위</label>
+        <textarea id="fr" placeholder="예: 교과서 p.34~56"></textarea></div>
+      <div class="form-col" style="margin-bottom:10px"><label>평가 기준</label>
+        <textarea id="fc" placeholder="예: 발음·유창성 40%, 내용 60%"></textarea></div>
+      <div class="form-col" style="margin-bottom:14px"><label>메모</label>
+        <textarea id="fm" placeholder="예: 준비물, 유의사항 등"></textarea></div>
+      <button class="btn btn-p" onclick="aE()">+ 추가하기</button>
+    </div>
+    <div class="divider"></div>
+    <div class="sec-hd">비밀번호 관리</div>
+    ${ia?`<div class="rbox">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#d97706">⚠ 반장 비밀번호 초기화</div>
+        <div style="font-size:12px;color:#d97706;margin-top:3px">반장이 비밀번호를 잊었을 때 <b>${DP}</b>로 초기화합니다.</div>
+      </div>
+      <button class="btn btn-w btn-sm" onclick="rMP()">초기화</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      ${pC('entry','입장 비밀번호')}${pC('admin','선생님 비밀번호')}
+    </div>
+    <div style="margin-top:12px">${pC('monitor','반장 비밀번호')}</div>`
+    :`<div>${pC('monitor','반장 비밀번호')}</div>`}
+  </div>`;
+}
+
+function pC(role,label){
+  return`<div class="card">
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px">🔒 ${label}</div>
+    <div class="form-col" style="margin-bottom:8px"><label>현재 비밀번호</label>
+      <input type="password" id="c-${role}" placeholder="현재 비밀번호"></div>
+    <div class="form-col" style="margin-bottom:4px"><label>새 비밀번호</label>
+      <input type="password" id="n-${role}" placeholder="새 비밀번호" oninput="chkStr('${role}')"></div>
+    <div class="pstr" id="ps-${role}" style="margin-bottom:8px"></div>
+    <div class="form-col" style="margin-bottom:12px"><label>확인</label>
+      <input type="password" id="cf-${role}" placeholder="다시 입력"></div>
+    <button class="btn btn-p" style="width:100%" onclick="chP('${role}')">변경</button>
+  </div>`;
+}
+function chkStr(r){
+  const v=document.getElementById('n-'+r)?.value||'';
+  const el=document.getElementById('ps-'+r);if(!el)return;
+  if(!v){el.textContent='';return;}
+  let s=0;if(v.length>=6)s++;if(v.length>=10)s++;if(/[0-9]/.test(v)&&/[a-zA-Z]/.test(v))s++;if(/[^a-zA-Z0-9]/.test(v))s++;
+  const lv=[{t:'너무 짧음',c:'#dc2626'},{t:'약함',c:'#dc2626'},{t:'보통',c:'#d97706'},{t:'강함',c:'#16a34a'},{t:'매우 강함',c:'#16a34a'}];
+  const l=lv[Math.min(s,4)];el.textContent='강도: '+l.t;el.style.color=l.c;
+}
+async function chP(r){
+  const cur=document.getElementById('c-'+r)?.value;
+  const nw=document.getElementById('n-'+r)?.value;
+  const cf=document.getElementById('cf-'+r)?.value;
+  if(cur!==S.data.passwords[r]){toast('현재 비밀번호가 틀렸습니다.');return;}
+  if(nw.length<4){toast('4자 이상 입력해주세요.');return;}
+  if(nw!==cf){toast('새 비밀번호가 일치하지 않습니다.');return;}
+  S.data.passwords[r]=nw;await saveData();
+  toast({entry:'입장',admin:'선생님',monitor:'반장'}[r]+' 비밀번호 변경 완료!');
+  ['c-','n-','cf-'].forEach(p=>{const e=document.getElementById(p+r);if(e)e.value='';});
+  const se=document.getElementById('ps-'+r);if(se)se.textContent='';
+}
+async function rMP(){
+  if(!confirm(`반장 비밀번호를 '${DP}'으로 초기화할까요?`))return;
+  S.data.passwords.monitor=DP;await saveData();
+  toast(`반장 비밀번호가 '${DP}'으로 초기화됐습니다.`);
+}
+function dL(){
+  const r=document.getElementById('rr').value,p=document.getElementById('rp').value;
+  if(p===S.data.passwords[r]){S.role=r;toast('로그인됐습니다!');rBadge();rAdminTab();rList();}
+  else toast('비밀번호가 틀렸습니다.');
+}
+function dLo(){
+  S.role='viewer';toast('로그아웃됐습니다.');
+  rBadge();rAdminTab();rList();
+  sw('list',document.getElementById('tb-list'));
+}
+async function aE(){
+  const sub=document.getElementById('fs').value,title=document.getElementById('ft').value.trim();
+  const date=document.getElementById('fd').value,period=document.getElementById('fp').value;
+  const range=document.getElementById('fr').value.trim();
+  const criteria=document.getElementById('fc').value.trim();
+  const memo=document.getElementById('fm').value.trim();
+  if(!title||!date){toast('제목과 날짜를 입력해주세요.');return;}
+  S.data.exams.push({id:S.data.nextId++,subject:sub,title,date,period,range,criteria,memo,done:false});
+  rFilters();rList();rCal();
+  await saveData();toast('추가됐습니다!');
+  ['ft','fd','fr','fc','fm'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+}
+function sw(name,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const sec=document.getElementById('tab-'+name);if(sec)sec.classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(name==='cal')rCal();
+  if(name==='adm')rAdminTab();
+}
+
+function showModal(html){
+  let o=document.getElementById('gmodal');
+  if(!o){o=document.createElement('div');o.id='gmodal';o.className='overlay';document.body.appendChild(o);}
+  o.innerHTML=`<div class="modal" onclick="event.stopPropagation()">${html}</div>`;
+  o.onclick=(e)=>{if(e.target===o)closeModal();};
+  o.style.display='flex';
+}
+function closeModal(){const o=document.getElementById('gmodal');if(o)o.style.display='none';}
+
+initLanding();
+</script>
+</body>
+</html>
