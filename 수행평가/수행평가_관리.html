@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> 수행평가 일정 관리</title>
+<title>상일중학교 수행평가 일정 관리</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a1a;min-height:100vh}
@@ -101,52 +101,23 @@ const DP='1234';
 const DC={range:['#dbeafe','#1d4ed8'],criteria:['#dcfce7','#166634'],memo:['#fef3c7','#92400e']};
 const DL={range:'시험범위',criteria:'평가기준',memo:'메모'};
 
-// ── JSONP API ──
-let _cbIdx=0;
-function jsonp(params){
-  return new Promise((resolve,reject)=>{
-    const cbName='_cb'+(++_cbIdx)+'_'+Date.now();
-    const timer=setTimeout(()=>{
-      delete window[cbName];
-      const s=document.getElementById('s_'+cbName);
-      if(s)s.remove();
-      reject(new Error('timeout'));
-    },20000);
-    window[cbName]=function(data){
-      clearTimeout(timer);
-      delete window[cbName];
-      const s=document.getElementById('s_'+cbName);
-      if(s)s.remove();
-      resolve(data);
-    };
-    // payload는 별도 인코딩
-    const parts=[];
-    for(const [k,v] of Object.entries(params)){
-      parts.push(encodeURIComponent(k)+'='+encodeURIComponent(v));
-    }
-    parts.push('callback='+encodeURIComponent(cbName));
-    const s=document.createElement('script');
-    s.id='s_'+cbName;
-    s.src=GAS+'?'+parts.join('&');
-    s.onerror=()=>{
-      clearTimeout(timer);
-      delete window[cbName];
-      s.remove();
-      reject(new Error('script load error'));
-    };
-    document.head.appendChild(s);
-  });
-}
-
+// ── fetch API ──
 async function apiRead(code){
-  try{return await jsonp({action:'readOne',code});}catch(e){console.error('read err',e);return {};}
+  try{
+    const res=await fetch(GAS+'?action=readOne&code='+encodeURIComponent(code));
+    return await res.json();
+  }catch(e){console.error('read err',e);return {};}
 }
 async function apiWrite(code,data){
   try{
-    const payload=JSON.stringify(data);
-    const res=await jsonp({action:'write',code,payload});
-    console.log('write result',res);
-    return res;
+    // no-cors로 쓰기 (응답 못 받지만 저장은 됨)
+    await fetch(GAS,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code,data})
+    });
+    return {success:true};
   }catch(e){console.error('write err',e);return {error:e.toString()};}
 }
 async function apiReadRegistry(){
